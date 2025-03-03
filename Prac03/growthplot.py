@@ -1,5 +1,5 @@
 #
-# growth.py - simulation of unconstrained growth. 
+# growthplot.py - simulation of unconstrained growth. 
 #
 import matplotlib.pyplot as plt
 
