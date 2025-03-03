@@ -12,7 +12,7 @@ time_step = 0.5
 num_iter = length / time_step
 growth_step = growth_rate * time_step
 print("INITIAL VALUES:\n")
-print("Similation Length (hours): ", length)
+print("Simulation Length (hours): ", length)
 print("Initial Population: ", population)
 print("Growth Rate(per hour): ",  growth_rate)
 print("Time Step (part hour per step): ",  time_step)
@@ -22,20 +22,17 @@ print("\nRESULTS:\n")
 print("Time: ", 0, "\tGrowth: ", 0, " \tPopulation: ", 100)
 
 zero_array = np.zeros(int(num_iter) + 1) # create an empty array of size num_iter + 1
+time_array = np.zeros(int(num_iter) + 1) # create an empty array of size num_iter + 1
 
-times=[0] #A list for the x-axis 'times', initial value is 0.
-pops=[100] # a list for the populations, initial value is 0. 
 for i in range(1, int(num_iter) + 1):
     growth = growth_step * population
     population = population + growth
     time = i * time_step
-    times.append(time) # add current time to the 'times' list. 
-    pops.append(population) # add current population to the 'pops' list.
+    zero_array[i] = population
+    time_array[i] = time
     print("Time: ", time, " \tGrowth: ",  growth, "\tPopulation: ", population)
 print("\nPROCESSING COMPLETE.\n")
 
-plt.title('Prac 3.
-        import numpy as np1: Unconstrained Growth  ')
-plt.plot(times, pops, color = 'r')
+plt.title('Prac 3.1: Unconstrained Growth  ')
+plt.plot(time_array, zero_array, color = 'r')
 plt.show()
-~                       
