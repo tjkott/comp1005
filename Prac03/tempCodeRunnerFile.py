@@ -1,2 +1,2 @@
 
-growth_rate = 0.1
+for i in range(80):
