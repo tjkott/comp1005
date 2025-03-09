@@ -1,3 +1,7 @@
+#
+# Activity7.py - cat eyes
+#
+
 import time
 
 LINE_UP = '\033[1A'
