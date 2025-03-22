@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import os
 print(os.getcwd)
+
+# Read file. 
 fileobj = open(r'C:\Users\theja\OneDrive\Documents\comp1005\Prac05\marchweatherfull.csv', 'r')
 # fileobj = open(‘marchweatherfull.csv’, ‘r’) 
 data = fileobj.readlines()
@@ -10,7 +12,7 @@ def mins():
     mins_strings= []
     for line in data[1:]:   
         columns = line.strip().split (",") # strip any white-spaces and split into csv
-        if len(columns) > 2: # ensures line has at least 3 columns to ensure valid data
+        if len(columns) > 2: # ensures each line has at least 3 columns to ensure valid data
             mins_strings.append(columns[2])
     mins = [float(val) for val in mins_strings]
     return mins
