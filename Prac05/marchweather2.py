@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import os
-print(os.getcwd)
 
 # Read file. 
 fileobj = open(r'C:\Users\theja\OneDrive\Documents\comp1005\Prac05\marchweatherfull.csv', 'r')
