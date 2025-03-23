@@ -1,23 +1,29 @@
 import matplotlib.pyplot as plt
 
+# Activity 2
 # Read file. 
 fileobj = open(r'C:\Users\theja\OneDrive\Documents\comp1005\Prac05\marchweatherfull.csv', 'r')
 # fileobj = open(‘marchweatherfull.csv’, ‘r’) 
 data = fileobj.readlines()
 fileobj.close()
 
-def mins():
-    mins_strings= []
-    for line in data[1:]:   
-        columns = line.strip().split (",") # strip any white-spaces and split into csv
-        if len(columns) > 2: # ensures each line has at least 3 columns to ensure valid data
-            mins_strings.append(columns[2])
-    mins = [float(val) for val in mins_strings]
-    return mins
-print(mins())
+def column_extractor(column_index):
+    column_strings = []
+    for line in data[1:]:
+        columns = line.strip().split(",")
+        if len(columns) > column_index:
+            column_strings.append(columns[column_index])
+    column = [float(val) for val in column_strings]
+    return column
+mins = column_extractor(2)
+max_s = column_extractor(3)
+nines = column_extractor(10)
+threes = column_extractor(16)
 
- # make an empty list to store the mins column on each line of the file 
-          # note that each entry will need to be converted to a float
-
-# do the same for maxs, nines and threes
-
+# Activity 3
+file2 = open(r'C:\Users\theja\OneDrive\Documents\comp1005\Prac05\marchout.csv', 'w')
+#file2 = open(‘marchout.csv’, ‘w’) 
+file2.write(",Mins,Maxs,Nines,Threes\n")
+for i in range(len(mins)):
+    file2.write("," + str(mins[i]) + "," + str(max_s[i]) + "," + str(nines[i]) + "," + str(threes[i]) + "\n")
+file2.close()
