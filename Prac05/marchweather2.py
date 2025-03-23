@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import os
 
 # Read file. 
 fileobj = open(r'C:\Users\theja\OneDrive\Documents\comp1005\Prac05\marchweatherfull.csv', 'r')
@@ -15,7 +14,7 @@ def mins():
             mins_strings.append(columns[2])
     mins = [float(val) for val in mins_strings]
     return mins
-mins()
+print(mins())
 
  # make an empty list to store the mins column on each line of the file 
           # note that each entry will need to be converted to a float
