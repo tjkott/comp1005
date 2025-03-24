@@ -37,7 +37,7 @@ def main():
             next_distance += direction
             continue # prevent rest of the loop from executing if at the honey pot
         elif next_distance == distance:
-            print(' '*next_distance, '\U0001F41D', '\U0001F338') #flower
+            print(' '* next_distance, '\U0001F41D', '\U0001F338') #flower
             direction = -1
             next_distance += direction
         print(' '*next_distance, '\U0001F41D') #normal honey bee traversal
