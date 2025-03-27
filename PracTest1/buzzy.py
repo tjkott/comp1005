@@ -29,7 +29,7 @@ def main():
     time = valid_time_range()
     next_distance = 0
     direction = 1  #1 = default is forwards
-    # Main Loop
+    # Main Loop3
     for t in range(time):
         if next_distance == 0:
             direction = 1
