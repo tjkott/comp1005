@@ -32,7 +32,7 @@ def buzz4(trees):
     scplt.set_ylim(0,6)
     scplt.set_title('Buzz4:  Random Trees')
     
-    # column graph 
+    # column graph/plot
     tree_names = np.array(list(string.ascii_uppercase[:trees])) #Name each tree for the column graph
     colplt.bar(tree_names, distances, color='Yellow', hatch='/', edgecolor='Black', linewidth=1)
     colplt.set_xlabel("Trees")
@@ -45,7 +45,7 @@ def buzz4(trees):
 
 def main(number_of_trees):
     if 5.0 <= number_of_trees <= 20.0:
-        print(buzz4(number_of_trees))
+        buzz4(number_of_trees)
     else:
         number_of_trees = float(input("Invalid input. Please enter a valid number of trees."))
         main(number_of_trees)
