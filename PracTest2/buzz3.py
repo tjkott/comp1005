@@ -8,7 +8,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 def buzz3(trees):
     trees = int(trees)
     treeX = np.random.uniform(1,5,trees)
