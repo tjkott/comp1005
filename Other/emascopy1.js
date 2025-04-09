@@ -28,7 +28,7 @@ function organiseFiles() {
 
     // Get root folder
     var rootFolders = DriveApp.getFoldersByName(rootFolderName);
-    if (!rootFolders.hasNext()) throw new Error("Upload folder not found.");
+    if (!uploadFolders.hasNext()) throw new Error("Upload folder not found. Please create a folder named 'UploadHere!!' in your Google Drive.");
     var rootFolder = rootFolders.next();
 
     // Get upload folder 
@@ -41,21 +41,11 @@ function organiseFiles() {
     var data = sheet.getDataRange().getValues();
 
     //make manual review folder
-    var uncategorisedParent = rootFolder.getFoldersByName("NeedsManualReview!!!");
+    var uncategorisedParent = driveFolder.getFoldersByName("NeedsManualReview!!!");
     if (!uncategorisedParent.hasNext()) {
-        uncategorisedParent = rootFolder.createFolder("NeedsManualReview!!!");
+        uncategorisedParent = driveFolder.createFolder("NeedsManualReview!!!");
     } else {
         uncategorisedParent = uncategorisedParent.next();
-    }
-
-    // Cache all files in UploadFolder once
-    var cachedFiles = [];
-    var tempFiles = UploadFolder.getFiles();
-    while (tempFiles.hasNext()) cachedFiles.push(tempFiles.next());
-
-    if (cachedFiles.length === 0) {
-        Logger.log("⚠️ No files found in 'UploadHere!!'. Please upload files.");
-        return;
     }
 
     for (var line = 1; line < data.length; line++) {
@@ -70,7 +60,7 @@ function organiseFiles() {
         }
 
         // Parent genre
-        var parentFolder = rootFolder.getFoldersByName(parentGenre);
+        var parentFolder = driveFolder.getFoldersByName(parentGenre);
         if (parentGenre === "NeedsManualReview!!!") {
             parentFolder = uncategorisedParent;
         } else {
@@ -100,30 +90,27 @@ function organiseFiles() {
         }
         // Move files to the genre folder enhanced with Levenshtein's distance function for matching file names
         var bestMatch = { file: null, score: 0 };
+        var allFiles = UploadFolder.getFiles(); 
 
-        for (var i = 0; i < cachedFiles.length; i++) {
-            var file = cachedFiles[i];
-            var fileName = file.getName().replace(/\.[^/.]+$/, "").toLowerCase(); // Remove file extensions and lower case. 
+        while (allFiles.hasNext()) {
+            var file = allFiles.next();
+            var fileName = file.getname().replace(/\.[^/.]+$/, "").toLowerCase(); // Remove file extensions and lower case. 
             var songNameLower = songName.toLowerCase();
             
             // Calculate similarity
-            var similarity1 = calculateSimilarity(songNameLower, fileName); // Direct match
-            var similarity2 = calculateSimilarity(songNameLower + ".mp3", file.getName().toLowerCase()); // Match with .mp3 extension
-            var similarity3 = calculateSimilarity(songNameLower + ".wav", file.getName().toLowerCase()); // Match with .wav extension
-            // Use the highest similarity score
-            var similarity = Math.max(similarity1, similarity2, similarity3);
+            var similarity = calculateSimilarity(songNameLower, fileName);
             if (similarity > bestMatch.score && similarity > 0.5) {
                 bestMatch = {file: file, score: similarity};
             }
         }
         // Check for duplicates in the destination folder:
         if (bestMatch.file) {
-            var existingFiles = genreFolder.getFilesByName(bestMatch.file.getName());
+            var existingFiles = genreFodler.getFilesByName(bestMatch.file.getName());
             if (!existingFiles.hasNext()) {
                 bestMatch.file.moveTo(genreFolder); // Move the best match file to the genre folder
                 Logger.log(`Moved: ${bestMatch.file.getName()} (${(bestMatch.score * 100).toFixed(1)}% match to "${songName}")`);
             } else {
-                Logger.log(`Duplicate skipped: ${bestMatch.file.getName()} (${(bestMatch.score * 100).toFixed(1)}%)`);
+                Logger.log(`Duplicate skipped: ${bestMatch.file.getName()} (${(bestMatch.score * 100).toFixed(1)}`);
             }
         } else {
             Logger.log(`⚠️ File not found: ${songName}`);
