@@ -43,8 +43,12 @@ testPerson.displayPerson()
 
 
 # Activity 5 - Universal People Reader
-peopleList = []
-fileobj = open('people.csv','r') 
-for line in fileobj:
-    peopleList.append(line.split(':')[1])
+fileobj = open(r'C:\Users\theja\OneDrive\Documents\comp1005\Prac07\people.csv', 'r')
+#fileobj = open('people.csv','r') 
+peopleList = [line.strip().split(':')[1] for line in fileobj]
+print(peopleList)
+for person in peopleList:
+    testAdd2 = Address(peopleList[person], peopleList[person], peopleList[person], peopleList[person])
+    testPerson2 = Person(peopleList[person], ).displayPerson()
+    testPerson2.displayPerson()
 fileobj.close()

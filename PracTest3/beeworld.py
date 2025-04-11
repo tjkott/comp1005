@@ -21,8 +21,7 @@ simlength = 1
 hiveX = 30
 hiveY = 25
 b1 = Bee("b1", (5,10))
-blist = [b1]
-
+print(blist)
 # hive will range between 0 and 10
 # 10 is brown, not ready
 # 0 is ready

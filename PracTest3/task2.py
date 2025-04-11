@@ -1,7 +1,7 @@
 # Student Name: Thejana Kottawatta Hewage
 # Student ID:   22307822
 #
-# task1.py - simulation of bee colony in a world with trees and flowers
+# task2.py - 
 #
 # Version information: 11/04//2025 - Final version
 #
@@ -15,7 +15,7 @@ from buzzness import Bee
 def plot_hive(hive, blist, ax):
     xvalues = [b.get_pos()[0] for b in blist if b.get_inhive()]
     yvalues = [b.get_pos()[1] for b in blist if b.get_inhive()]
-    ax.imshow(hive.T, origin="lower") 
+    ax.imshow(hive.T, origin="lower", cmap='YlOrBr') ## (a) update the colour map 
     ax.scatter(xvalues, yvalues)
 
 simlength = 1

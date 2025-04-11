@@ -8,11 +8,7 @@
 #
 import random
 
-class Bee():
-    """
-    Provides state and behaviour for worker bee in the simulation
-    """
-
+class Bee(): # Provdiqng state and behaviour for worker bee in the simulation
     def __init__(self, ID, pos):
         """
         Initialise Bee object
@@ -40,6 +36,7 @@ class Bee():
         return self.pos
     
     def get_inhive(self):
+        
         return self.inhive
     
     def set_inhive(self, value):
