@@ -18,12 +18,16 @@ class Animal():
 
 class Dog(Animal): 
     myclass = "Dog"
+    def __init__(self, name, dob, colour, breed):
+        super().__init__(name, dob, colour, breed)
     
 class Cat(Animal): 
     myclass = "Cat"
 
 class Bird(Animal): 
     myclass = "Bird"
+    def __init__(self, name, dob, colour, breed):
+        super().__init__(name, dob, colour, breed)
 
 class Shelter():
     def __init__(self, name, address, phone): 
@@ -70,3 +74,4 @@ class Shelter():
 
     def makeAdopted(self, name): 
         ... # add your code here
+

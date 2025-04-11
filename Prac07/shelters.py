@@ -19,9 +19,9 @@ rspca.displayProcessing()
 # This code is commented out until you have implemented 
 # the methods in animal.py
 #print('Processing animals...\n')
-#rspca.makeAvailable('Dude') 
+rspca.makeAvailable('Dude') 
 #rspca.makeAvailable('Oogie') 
-#rspca.makeAvailable('Big Bird') 
+rspca.makeAvailable('Big Bird') 
 #rspca.makeAdopted('Oogie')
 #print('\nPrinting updated list...\n') 
 #rspca.displayAll()
