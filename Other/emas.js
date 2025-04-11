@@ -53,10 +53,7 @@ function organiseFiles() {
     var tempFiles = UploadFolder.getFiles();
     while (tempFiles.hasNext()) cachedFiles.push(tempFiles.next());
 
-    if (cachedFiles.length === 0) {
-        Logger.log("⚠️ No files found in 'UploadHere!!'. Please upload files.");
-        return;
-    }
+    
 
     for (var line = 1; line < data.length; line++) {
         var songName = data[line][1]
