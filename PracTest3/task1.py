@@ -12,16 +12,16 @@ import random
 import numpy as np
 from buzzness import Bee
 
+simlength = 1
+hiveX = 30
+hiveY = 25
+hive = np.zeros((hiveX,hiveY))
+
 def plot_hive(hive, blist, ax):
     xvalues = [b.get_pos()[0] for b in blist if b.get_inhive()]
     yvalues = [b.get_pos()[1] for b in blist if b.get_inhive()]
     ax.imshow(hive.T, origin="lower") 
     ax.scatter(xvalues, yvalues)
-
-simlength = 1
-hiveX = 30
-hiveY = 25
-hive = np.zeros((hiveX,hiveY))
 
 ## (c) Create 5 bees and append to the blist. 
 blist = [Bee(f"b{i+1}", (np.random.randint(0, hiveX), np.random.randint(0, hiveY))) for i in range(5)]
