@@ -27,10 +27,11 @@ class Bee(): # Provdiqng state and behaviour for worker bee in the simulation
         Update Bee object on each timestep
         subgrid: gives view of surroundings for choosing where to move (not used for now)
         """
-        validmoves = [(1,0),(1,1),(-1,-1)]     # list of valid moves
+        validmoves = [(0,0), (0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)]  ## (d) In the Bee, update the valid moves to inlcude all 9 Moore neighbouhoods. 
         move = random.choice(validmoves)       # randomly choose a move
         print(self.pos, move)
         # need to update the position based on the move
+        self.pos = (self.pos[0] + move[0], self.pos[1] + move[1]) # update the position of the bee.
         
     def get_pos(self):
         return self.pos

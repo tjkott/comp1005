@@ -18,7 +18,7 @@ hiveY = 25
 hive = np.zeros((hiveX,hiveY))
 
 def plot_hive(hive, blist, ax):
-    xvalues = [b.get_pos()[0] for b in blist if b.get_inhive()]
+    xvalues = [b.get_pos()[0] for b in blist if b.get_inhive()] # list of x coordinates only if inhive = True
     yvalues = [b.get_pos()[1] for b in blist if b.get_inhive()]
     ax.imshow(hive.T, origin="lower") 
     ax.scatter(xvalues, yvalues)
