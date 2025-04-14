@@ -22,7 +22,7 @@ class Bee(): # Providing state and behaviour for worker bee in the simulation
         self.age = 0
         self.inhive = True
 
-    def step_change(self, subgrid=None, maxX=None, maxY=None):
+    def step_change(self, subgrid=None, maxX=None, maxY=None): # sets default value of the maxX parameter to be None (empty value)
         """
         Update Bee object on each timestep
         subgrid: gives view of surroundings for choosing where to move (not used for now)
