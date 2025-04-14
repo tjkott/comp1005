@@ -78,15 +78,12 @@ def plot_world(ax):
         else: #if the col is even set it to green
             world[x:x+1, 2:4] = 5 #Green is 4
 
-    
     ## (c) Plotted with the tab20 colourmap. 
     ax.imshow(world.T, origin="lower", cmap='tab20', vmin=0, vmax=19)
     #Plot the world bees
     xvalues = [b.get_pos()[0] for b in world_bees]
     yvalues = [b.get_pos()[1] for b in world_bees]
     ax.scatter(xvalues, yvalues, c='black', marker='o', s=80)
-
-
 
 # Run the simulation. 
 for t in range(simlength):
@@ -112,7 +109,7 @@ for t in range(simlength):
 
     plt.show()
     plt.pause(1)
-    simlength = simlength -1
+    simlength = simlength - 1
 fig.savefig('task4.png')
 
 #plt.ion()
