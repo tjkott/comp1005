@@ -12,7 +12,6 @@ import random
 import numpy as np
 from buzzness import Bee
 
-
 simlength = 5
 hiveX = 30
 hiveY = 25
@@ -83,14 +82,14 @@ def plot_world(ax):
     #Plot the world bees
     xvalues = [b.get_pos()[0] for b in world_bees]
     yvalues = [b.get_pos()[1] for b in world_bees]
-    ax.scatter(xvalues, yvalues, c='black', marker='o', s=80)
+    ax.scatter(xvalues, yvalues, c='yellow', marker='o', s=80)
 
 # Run the simulation. 
 for t in range(simlength):
     for b in blist:
-        b.step_change()
+        b.step_change(maxX=hiveX, maxY=hiveY) # pass the boundaries of the hive to the step_change function.
     for b in world_bees:
-        b.step_change()
+        b.step_change(maxX=propertyX, maxY=propertyY) # pass the boundaries of the world. 
     fig, axes = plt.subplots(1, 2, figsize=(15,6)) # 1 row with 2 columns sup fig
     
     ## (e) Plot a duplicate of the plot in the 2nd column and add a supertitle. 
@@ -111,10 +110,3 @@ for t in range(simlength):
     plt.pause(1)
     simlength = simlength - 1
 fig.savefig('task4.png')
-
-#plt.ion()
-
-## (c) Update the plot to 
-
-
-
