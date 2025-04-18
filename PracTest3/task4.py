@@ -86,8 +86,6 @@ def plot_world(ax):
     yvalues = [b.get_pos()[1] for b in world_bees]
     ax.scatter(xvalues, yvalues, c='black', marker='o', s=80)
 
-
-
 # Run the simulation. 
 for t in range(simlength):
     for b in blist:
