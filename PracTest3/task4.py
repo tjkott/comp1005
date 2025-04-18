@@ -3,7 +3,7 @@
 #
 # task4.py - Make the bees move
 #
-# Version information: 13/04//2025 - Final version
+# Version information: 14/04//2025 - Final version
 #
 # Usage: <how to run the program>
 #
@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 from buzzness import Bee
-
 
 simlength = 5
 hiveX = 30
@@ -78,20 +77,23 @@ def plot_world(ax):
         else: #if the col is even set it to green
             world[x:x+1, 2:4] = 5 #Green is 4
 
-    
     ## (c) Plotted with the tab20 colourmap. 
     ax.imshow(world.T, origin="lower", cmap='tab20', vmin=0, vmax=19)
     #Plot the world bees
     xvalues = [b.get_pos()[0] for b in world_bees]
     yvalues = [b.get_pos()[1] for b in world_bees]
+<<<<<<< HEAD
     ax.scatter(xvalues, yvalues, c='black', marker='o', s=80)
+=======
+    ax.scatter(xvalues, yvalues, c='yellow', marker='o', s=80)
+>>>>>>> d6d6f1a18f4283f1dc23d06eddb8e22dbfbd98fc
 
 # Run the simulation. 
 for t in range(simlength):
     for b in blist:
-        b.step_change()
+        b.step_change(maxX=hiveX, maxY=hiveY) # pass the boundaries of the hive to the step_change function.
     for b in world_bees:
-        b.step_change()
+        b.step_change(maxX=propertyX, maxY=propertyY) # pass the boundaries of the world. 
     fig, axes = plt.subplots(1, 2, figsize=(15,6)) # 1 row with 2 columns sup fig
     
     ## (e) Plot a duplicate of the plot in the 2nd column and add a supertitle. 
@@ -110,12 +112,5 @@ for t in range(simlength):
 
     plt.show()
     plt.pause(1)
-    simlength = simlength -1
+    simlength = simlength - 1
 fig.savefig('task4.png')
-
-#plt.ion()
-
-## (c) Update the plot to 
-
-
-

@@ -12,8 +12,6 @@ import random
 import numpy as np
 from buzzness import Bee
 
-
-
 simlength = 1
 hiveX = 30
 hiveY = 25
@@ -85,7 +83,7 @@ def plot_world(ax):
 # Run the simulation. 
 for t in range(simlength):
     for b in blist:
-        b.step_change()
+        b.step_change(maxX=hiveX, maxY=hiveY)
     fig, axes = plt.subplots(1, 2, figsize=(15,6)) # 1 row with 2 columns sup fig
     
     ## (e) Plot a duplicate of the plot in the 2nd column and add a supertitle. 

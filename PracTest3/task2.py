@@ -12,17 +12,18 @@ import random
 import numpy as np
 from buzzness import Bee
 
+
 simlength = 1
 hiveX = 30
 hiveY = 25
 hive = np.zeros((hiveX,hiveY))
 ready_for_honey = 10
-# generate 5 bees. 
-blist = [Bee(f"b{i+1}", (np.random.randint(0, hiveX), np.random.randint(0, hiveY))) for i in range(5)] # for loop for generating 5 bees 
+
+# Generate 5 bees with positions guaranteed to be within boundaries
+blist = [Bee(f"b{i+1}", (np.random.randint(0, hiveX), np.random.randint(0, hiveY))) for i in range(5)]
 
 def plot_hive(hive, blist, ax):
     ## (b) readiness for honey
-
     if ready_for_honey == 10:
         hive[:, :] = 10
     else:
@@ -44,8 +45,10 @@ def plot_hive(hive, blist, ax):
 
 # Run the simulation. 
 for t in range(simlength):
+    # Pass boundaries to step_change to prevent bees from moving outside the plot
     for b in blist:
-        b.step_change()
+        b.step_change(maxX=hiveX, maxY=hiveY)
+        
     fig, axes = plt.subplots(1, 2, figsize=(15,6)) # 1 row with 2 columns sup fig
     
     ## (e) Plot a duplicate of the plot in the 2nd column and add a supertitle. 
@@ -73,8 +76,3 @@ fig.savefig('task2.png')
 # 1-5 is honey level
 
 #plt.ion()
-
-## (c) Update the plot to 
-
-
-
