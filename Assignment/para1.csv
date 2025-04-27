@@ -1,0 +1,6 @@
+num_bees,10
+sim_length,30
+hive_size,30,25
+world_size,50,40
+frame,10,5,10,15
+frame,15,5,10,15

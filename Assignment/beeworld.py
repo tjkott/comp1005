@@ -12,6 +12,8 @@ import random
 import numpy as np
 from buzzness import Bee
 
+
+
 simlength = 5
 hiveX = 30
 hiveY = 25
@@ -83,6 +85,7 @@ def plot_world(ax):
     xvalues = [b.get_pos()[0] for b in world_bees]
     yvalues = [b.get_pos()[1] for b in world_bees]
     ax.scatter(xvalues, yvalues, c='black', marker='o', s=80)
+    ax.scatter(xvalues, yvalues, c='yellow', marker='o', s=80)
 
 # Run the simulation. 
 for t in range(simlength):

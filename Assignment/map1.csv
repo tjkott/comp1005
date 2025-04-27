@@ -1,0 +1,10 @@
+50,40
+hive,22,20
+pond,30,5,9,5
+barrier,10,30,5,5
+flower,Daisy,15,15,3.0
+flower,Rose,25,35,2.5
+flower,Sunflower,35,15,2.0
+flower,Tulip,45,25,3.5
+tree,Oak,10,25,3,true
+tree,Maple,40,35,2,true
