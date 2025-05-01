@@ -11,7 +11,7 @@
 class Portfolio ():
 
     def __init__(self):
-        self.accounts = []
+        self.accounts = [] 
 
     def addAccount(self, name, number, balance):
         self.accounts.append(BankAccount(name, number, balance))
