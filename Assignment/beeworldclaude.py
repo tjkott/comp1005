@@ -801,7 +801,7 @@ def run_simulation(interactive=False, terrain_file=None, parameter_file=None):
     
     # Run simulation loop
     simlength = params['sim_length']
-    pause_time = 0.5  # Default pause between frames
+    pause_time = 1  # Default pause between frames
     
     while simlength > 0:
         # Update bees
