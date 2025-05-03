@@ -3,8 +3,8 @@
 
   accounts.py - class for bank account portfolio
   
-  Student Name   :
-  Student Number :
+  Student Name   : Thejana Kottawatta Hewage
+  Student Number : 22307822
   Date/prac time :
 '''
 
@@ -45,9 +45,13 @@ class Portfolio ():
                 temp = acct
         if temp:
             print("---> Withdrawing $" + str(amount) + " from account " + name)
-            temp.withdraw(amount)
-            print("         Complete")
-
+            try:
+                temp.withdraw(amount)
+                print("         Complete")
+            except InsufficientFundsError:
+                print(f"         Insufficient funds in account {name}. Withdrawal of ${amount} failed.")
+        else:
+            print(f"         Account {name} not found. Withdrawal of ${amount} failed.")
 
     def balances(self):
         print('\n<----------------  Balances of All Accounts  ---------------->')
@@ -60,23 +64,24 @@ class Portfolio ():
         print('<------------------------------------------------------------>\n')
         print()
 
+    # 1. Complete the code for getNumAccounts and getTotalBalance. 
     def getNumAccounts(self):
         '''
         getNumAccounts - returns the number of accounts in the portfolio
-        
-        enter your code below
+
         '''
-        ...
+        return len(self.accounts)
 
     def getTotalBalance(self):
         '''
-        getNumAccounts - returns the number of accounts in the poartfolio
+        getNumAccounts - returns the number of accounts in the portfolio
         
-        enter your code below - the balances code may help
         '''
-        ...
+        total = 0
+        for account in self.accounts:
+            total += account.bal
+        return total
 
-    
 class BankAccount ():
 
     def __init__(self, name, number, balance):
@@ -85,7 +90,10 @@ class BankAccount ():
         self.bal = balance
 
     def withdraw(self, amount):
+        if self.bal >= amount:
             self.bal = self.bal - amount
+        else: # 1. Raise an InsufficientFundsError exception. 
+            raise InsufficientFundsError(f"Cannot withdraw ${amount}. Insufficient funds: balance is ${self.bal}")
 
     def deposit(self, amount):
         self.bal = self.bal + amount
