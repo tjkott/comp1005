@@ -1,0 +1,35 @@
+type,x,y,param1,param2,param3
+hive,10,5,20,15,5 # type, bottom_left_x, bottom_left_y, width, height, frame_width
+obstacle,5,25,8,8,grey # type, x, y, width, height, color
+obstacle,30,5,10,5,blue
+flower,25,25,Big Tree,green,50,True,0.1 # type, x, y, name, color, initial_nectar, is_limited, regen_rate
+flower,35,35,Flower Patch 1,purple,100,True,0.2
+flower,36,36,Flower Patch 2,purple,100,True,0.2
+flower,37,37,Flower Patch 3,purple,100,True,0.2
+# Add more flowers in a grid for the visual example
+flower,30,30,fgrid,purple,20,True,0.05
+flower,32,30,fgrid,purple,20,True,0.05
+flower,34,30,fgrid,purple,20,True,0.05
+flower,36,30,fgrid,purple,20,True,0.05
+flower,38,30,fgrid,purple,20,True,0.05
+flower,30,32,fgrid,purple,20,True,0.05
+flower,32,32,fgrid,purple,20,True,0.05
+flower,34,32,fgrid,purple,20,True,0.05
+flower,36,32,fgrid,purple,20,True,0.05
+flower,38,32,fgrid,purple,20,True,0.05
+flower,30,34,fgrid,purple,20,True,0.05
+flower,32,34,fgrid,purple,20,True,0.05
+flower,34,34,fgrid,purple,20,True,0.05
+flower,36,34,fgrid,purple,20,True,0.05
+flower,38,34,fgrid,purple,20,True,0.05
+flower,30,36,fgrid,purple,20,True,0.05
+flower,32,36,fgrid,purple,20,True,0.05
+flower,34,36,fgrid,purple,20,True,0.05
+flower,36,36,fgrid,purple,20,True,0.05
+flower,38,36,fgrid,purple,20,True,0.05
+flower,30,38,fgrid,purple,20,True,0.05
+flower,32,38,fgrid,purple,20,True,0.05
+flower,34,38,fgrid,purple,20,True,0.05
+flower,36,38,fgrid,purple,20,True,0.05
+flower,38,38,fgrid,purple,20,True,0.05
+flower,15,15, одинокий,yellow,30,False,0 # Unlimited flower example

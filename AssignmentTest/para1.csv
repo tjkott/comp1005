@@ -1,0 +1,8 @@
+parameter,value
+num_bees,10
+max_timesteps,500
+property_width,50
+property_height,40
+bee_speed,0.8
+bee_capacity,1.0
+plot_update_interval,1 # Update plot every N steps
