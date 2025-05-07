@@ -78,16 +78,32 @@ class Hive:
 
     def _build_initial_comb(self):
         """Builds the initial vertical stripe of comb."""
-        start_x = (self.width - self.frame_width) // 2
-        end_x = start_x + self.frame_width
-        print(f"Building initial comb from x={start_x} to x={end_x-1} within hive dims {self.width}x{self.height}")
-        for local_y in range(self.height):
+        # Ensure calculations use integer logic where needed for range/indexing
+        # Convert hive dimensions and frame width to integers for calculations
+        hive_width_int = int(self.width)
+        hive_height_int = int(self.height)
+        # Ensure frame_width is also treated as int if it wasn't already
+        frame_width_int = int(self.frame_width)
+
+        # Use integer division and ensure results are integers for range()
+        # // performs floor division, result is int if both operands are int
+        start_x = (hive_width_int - frame_width_int) // 2
+        # end_x calculation now uses integers, resulting in an integer
+        end_x = start_x + frame_width_int
+
+        print(f"Building initial comb from x={start_x} to x={end_x-1} within hive dims {hive_width_int}x{hive_height_int}") # Should print integers
+
+        # Use the integer versions in range()
+        for local_y in range(hive_height_int):
             for local_x in range(start_x, end_x):
-                 # Check bounds just in case
-                 if 0 <= local_x < self.width and 0 <= local_y < self.height:
+                 # Check bounds using integer width/height
+                 if 0 <= local_x < hive_width_int and 0 <= local_y < hive_height_int:
+                    # Pass integers to HoneycombCell constructor (local_x, local_y are from range)
                     cell = HoneycombCell(local_x, local_y)
                     cell.build() # Immediately set to built
                     self.cells[(local_x, local_y)] = cell
+                 # else:
+                 #    print(f"Skipping cell build at ({local_x},{local_y}) - out of bounds {hive_width_int}x{hive_height_int}")
 
     def get_cell_global_coords(self, local_x, local_y):
         """Convert local hive coords to global property coords."""
@@ -480,32 +496,60 @@ class Simulation:
         try:
             with open(filename, 'r', newline='') as f:
                 reader = csv.reader(f)
-                next(reader) # Skip header row
-                for row in reader:
+                header = next(reader) # Skip header row
+                temp_params = {} # Load into a temporary dict first
+                for i, row in enumerate(reader):
+                    # Skip empty rows or rows that are comments (start with #)
+                    if not row or not row[0] or row[0].strip().startswith('#'):
+                        continue
+
                     if len(row) >= 2:
-                        param, value = row[0].strip(), row[1].strip()
+                        param = row[0].strip()
+                        # Get value and strip comments/whitespace from the value part
+                        value_str = row[1].split('#')[0].strip()
+
                         # Try converting to number, default to string
                         try:
-                            if '.' in value:
-                                self.params[param] = float(value)
+                            if '.' in value_str:
+                                temp_params[param] = float(value_str)
                             else:
-                                self.params[param] = int(value)
+                                temp_params[param] = int(value_str)
                         except ValueError:
-                            self.params[param] = value # Keep as string if conversion fails
+                            print(f"Warning: Could not parse parameter '{param}' value '{value_str}' as number. Storing as string.")
+                            temp_params[param] = value_str # Keep as string if conversion fails
                     else:
-                         print(f"Warning: Skipping invalid parameter row: {row}")
+                         print(f"Warning: Skipping invalid parameter row {i+2}: {row}")
 
-            # Apply loaded parameters
-            self.max_timesteps = int(self.params.get('max_timesteps', self.max_timesteps))
-            # Store property dimensions for use in load_map
-            self.prop_width = int(self.params.get('property_width', 50))
-            self.prop_height = int(self.params.get('property_height', 40))
+            # Now apply loaded parameters from temp_params, ensuring correct types
+            self.params = temp_params # Store the processed params
+
+            self.max_timesteps = int(self.params.get('max_timesteps', 100)) # Default 100
+            self.prop_width = int(self.params.get('property_width', 50)) # Ensure int
+            self.prop_height = int(self.params.get('property_height', 40)) # Ensure int
+            # Ensure plot_update_interval is int
+            self.params['plot_update_interval'] = int(self.params.get('plot_update_interval', 1))
+            # Ensure bee parameters are correct type (already handled by initial parse, but good to check)
+            self.params['num_bees'] = int(self.params.get('num_bees', 10))
+            self.params['bee_speed'] = float(self.params.get('bee_speed', 1.0))
+            self.params['bee_capacity'] = float(self.params.get('bee_capacity', 1.0))
+
+
             print(f"Parameters loaded: {self.params}")
 
         except FileNotFoundError:
             print(f"Error: Parameter file '{filename}' not found. Using defaults.")
+            # Set defaults if file not found
+            self.max_timesteps = 100
+            self.prop_width = 50
+            self.prop_height = 40
+            self.params = {'max_timesteps': self.max_timesteps, 'property_width': self.prop_width, 'property_height': self.prop_height,
+                           'plot_update_interval': 1, 'num_bees': 10, 'bee_speed': 1.0, 'bee_capacity': 1.0} # Basic defaults
+            print(f"Using default parameters: {self.params}")
+
         except Exception as e:
-            print(f"Error loading parameters: {e}")
+            print(f"An unexpected error occurred loading parameters: {e}")
+            # Consider setting defaults or exiting depending on severity
+            exit() # Exit if params fail critically
 
 
     def load_map(self, filename):
