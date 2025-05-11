@@ -1,5 +1,5 @@
 num_bees,5
-simlength,50
+simlength,500
 hive_width,10
 hive_height,8
 comb_stripe_width,3
@@ -12,5 +12,5 @@ hive_entry_cell_inside_x,5
 hive_entry_cell_inside_y,0
 bee_avoid_empty_duration,15
 flower_nectar_capacity_default,5
-interactive_pause,1
-flower_dead_time,15
+interactive_pause,0.05
+flower_dead_time,20
