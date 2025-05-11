@@ -228,7 +228,6 @@ class Property:
         """Checks if coordinates are within property bounds."""
         return 0 <= x < self.width and 0 <= y < self.height
 
-
 class Bee:
     """Represents a single bee."""
     def __init__(self, id, start_x, start_y, hive, property_env, speed=1.0, capacity=1.0):
@@ -267,7 +266,6 @@ class Bee:
                     self.hive.y <= new_y < self.hive.y + self.hive.height:
                      self.x = new_x
                      self.y = new_y
-
             return
 
         target_x, target_y = self.target

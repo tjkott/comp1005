@@ -68,3 +68,4 @@ class Bee(): # Providing state and behaviour for worker bee in the simulation
     
     def set_inhive(self, value):
         self.inhive = value
+
