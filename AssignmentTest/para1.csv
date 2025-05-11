@@ -1,8 +1,12 @@
-parameter,value
 num_bees,10
-max_timesteps,500
-property_width,50
-property_height,40
-bee_speed,0.8
-bee_capacity,1.0
-plot_update_interval,1 # Update plot every N steps
+simlength,300
+hive_width,15
+hive_height,12
+comb_stripe_width,3
+max_nectar_per_cell,5
+bee_max_nectar_carry,2
+flower_regen_rate,0.5
+hive_exit_cell_inside_x,7
+hive_exit_cell_inside_y,0
+hive_entry_cell_inside_x,7
+hive_entry_cell_inside_y,0
