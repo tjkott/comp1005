@@ -54,48 +54,47 @@ class Flower(): #
         """
         return self.currentNectar
 
-    def take_nectar(self, amount=1): # Method for a bee to take nectar
+    def take_nectar(self, amount=1):
         """
-        Allows a bee to take nectar from the flower.
-        amount:   the amount of nectar the bee attempts to take
+        Method for a bee to take nectar
+        amount: the amount of nectar the bee attempts to take
         Returns the amount of nectar actually taken.
-        ## (a) Flower Nectar Depletion Logic
         """
-        taken = min(amount, self.currentNectar) # Bee cannot take more nectar than is currently available
+        taken = min(amount, self.currentNectar) # Bee cannot take more nectar than what is currently available at the time step
         self.currentNectar -= taken
         
-        if self.currentNectar <= 0 and self.state == 'ALIVE': # If flower runs out of nectar
+        if self.currentNectar <= 0 and self.state == 'ALIVE': #If flower runs out of nectar
             self.currentNectar = 0 # Ensure nectar doesn't go negative
-            self.state = 'DEAD' # Set flower state to DEAD
-            self.regeneration_cooldown = self.deadDuration # Start cooldown before it can regenerate
-            self.is_refilling = False # No longer refilling if it just died
-            # print(f"Flower {self.ID} ({self.name}) is now DEAD.")
+            self.state = 'DEAD' # Set flower state to "DEAD"
+            self.regeneration_cooldown = self.deadDuration # Start "DEAD" state cooldown"
+            self.is_refilling = False # No longer refilling if it is "DEAD:"
+            print(f"Flower {self.ID} ({self.name}) is now DEAD.")
         elif self.currentNectar > 0: 
             self.is_refilling = False # If nectar is taken but not depleted, it's not in the special "refilling from dead" state
-        return taken # Return the amount of nectar the bee successfully took
+        return taken
 
-    def regenerate_nectar(self, rate=1): # Method for flower to regenerate nectar over time
+    def regenerate_nectar(self, rate=1): # 
         """
-        Regenerates nectar for the flower over time.
+        Method for flower to regenerate nectar over time
         rate:   amount of nectar to regenerate per timestep
-        ## (b) Flower Nectar Regeneration Logic
+        
         """
-        if self.state == 'DEAD': # If the flower is currently dead
+        if self.state == 'DEAD': 
             if self.regeneration_cooldown > 0:
                 self.regeneration_cooldown -= 1 # Countdown the cooldown timer
             else: 
-                self.state = 'ALIVE' # Flower becomes ALIVE again once cooldown is over
-                self.is_refilling = True # Enters a state of actively refilling its nectar from zero
-                # print(f"Flower {self.ID} ({self.name}) is now ALIVE and starts refilling.")
+                self.state = 'ALIVE' # Flower gets "ALIVE" state once cooldown is finished. 
+                self.is_refilling = True # Enters a state of actively refilling its nectar from 0. 
+                print(f"Flower {self.ID} ({self.name}) is ALIVE and stated regeneration.")
         
-        if self.state == 'ALIVE' and self.is_refilling: # Only refills if it just became ALIVE or is explicitly refilling
+        if self.state == 'ALIVE' and self.is_refilling: # Only regenregenerates rates if it just became ALIVE or is explicitly refilling
             if self.currentNectar < self.nectarCapacity:
-                self.currentNectar = min(self.nectarCapacity, self.currentNectar + rate) # Add nectar up to capacity
+                self.currentNectar = min(self.nectarCapacity, self.currentNectar + rate) 
                 if self.currentNectar == self.nectarCapacity:
                     self.is_refilling = False # Stop the special refilling state once full
-                    # print(f"Flower {self.ID} ({self.name}) has refilled to capacity.")
+                    print(f"Flower {self.ID} ({self.name}) has regenerated to maximum.")
 
-    def is_available_for_targeting(self):
+    def is_available_for_bees(self):
         """Returns True if the flower is alive and has nectar (not necessarily full). Used by bees to find targets."""
         return self.state == 'ALIVE' and self.currentNectar > 0
 
@@ -205,7 +204,7 @@ class Bee(): # Providing state and behaviour for worker bee in the simulation
                 # print(f"Bee {self.ID} (on property) found no suitable flowers, now idle.")
 
         elif self.state == 'MOVING_TO_FLOWER': # Bee is moving towards a targeted flower
-            if self.current_target_object is None or not self.current_target_object.is_available_for_targeting(): # If target flower becomes unavailable
+            if self.current_target_object is None or not self.current_target_object.is_available_for_bees(): # If target flower becomes unavailable
                 if self.current_target_object: # If it had a target that's now gone/empty
                     self.recently_emptied_flowers[self.current_target_object.ID] = current_timestep # Remember this flower to avoid it for a while
                 self.state = 'SEEKING_FLOWER' # Go back to seeking a new flower
@@ -221,7 +220,7 @@ class Bee(): # Providing state and behaviour for worker bee in the simulation
 
         elif self.state == 'COLLECTING_NECTAR': # Bee is at a flower, collecting nectar
             moved_or_acted_this_step = True # Collecting is an action
-            if self.current_target_object and self.current_target_object.is_available_for_targeting() and self.nectar_carried < self.max_nectar_carry:
+            if self.current_target_object and self.current_target_object.is_available_for_bees() and self.nectar_carried < self.max_nectar_carry:
                 amount_to_take = self.max_nectar_carry - self.nectar_carried # Try to take enough to fill up
                 taken = self.current_target_object.take_nectar(amount_to_take) # Take nectar from flower
                 self.nectar_carried += taken
@@ -230,8 +229,8 @@ class Bee(): # Providing state and behaviour for worker bee in the simulation
             # Check if done collecting (bee is full, or flower is empty/gone)
             if self.nectar_carried >= self.max_nectar_carry or \
                not self.current_target_object or \
-               (self.current_target_object and not self.current_target_object.is_available_for_targeting()):
-                if self.current_target_object and not self.current_target_object.is_available_for_targeting(): 
+               (self.current_target_object and not self.current_target_object.is_available_for_bees()):
+                if self.current_target_object and not self.current_target_object.is_available_for_bees(): 
                     self.recently_emptied_flowers[self.current_target_object.ID] = current_timestep # Remember if flower was emptied
                 self.current_target_pos = self.hive_entrance_property_pos # Set target to hive entrance
                 self.state = 'RETURNING_TO_HIVE_ENTRANCE'
@@ -452,11 +451,11 @@ class Bee(): # Providing state and behaviour for worker bee in the simulation
 
         candidate_flowers = [] # List of flowers that are available and not recently emptied
         for flower in flowers_list:
-            if flower.is_available_for_targeting() and flower.ID not in self.recently_emptied_flowers:
+            if flower.is_available_for_bees() and flower.ID not in self.recently_emptied_flowers:
                 candidate_flowers.append(flower)
         
         if not candidate_flowers: # If no ideal candidates (all available flowers were recently emptied or none available)
-            fallback_candidates = [f for f in flowers_list if f.is_available_for_targeting()] # Consider any available flower
+            fallback_candidates = [f for f in flowers_list if f.is_available_for_bees()] # Consider any available flower
             if not fallback_candidates:
                 return None # No flowers available at all
             candidate_flowers = fallback_candidates # Use fallback list

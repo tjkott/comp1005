@@ -1,5 +1,5 @@
 num_bees,10
-simlength,10
+simlength,200
 hive_width,10
 hive_height,8
 comb_stripe_width,3
