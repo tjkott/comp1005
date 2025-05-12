@@ -4,7 +4,7 @@
 # buzzness.py - module with class definitions for simulation of bee colony
 #
 # Version information: 
-#     2024-04-07 : Initial Version released
+#     12/05/2024 : Final version released
 #
 import random
 
