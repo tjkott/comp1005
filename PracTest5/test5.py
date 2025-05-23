@@ -1,3 +1,16 @@
+'''
+
+Student Name: Thejana Kottawatta Hewage
+Student ID  : 22307822
+
+test5.py: Simulate spread of disease through a population 
+            using SIR model 
+ 
+Based on SIR model:
+    Shiflet&Shiflet Module 4.3 Modeling the Spread of SARS S2/24
+    and https://www.youtube.com/watch?v=k6nLfCbAzgo 
+'''
+
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
@@ -48,20 +61,17 @@ print("Day,Susceptible,Recovered,Infected")
 for i in range(simlength):
     print(f"{i},{resultarray[i,0]:.6f},{resultarray[i,1]:.6f},{resultarray[i,2]:.6f}")# Print data formatted to 6 decimal places, commaseparated
 plt.figure(figsize=(10, 6)) 
-
 # Modifying the colours and markers for the plot
 plt.plot(resultarray[:, 0], 'k-', label='Susceptible')  # Susceptible: solid black line
 plt.plot(resultarray[:, 1], 'g^', label='Recovered')    # Recovered: Green triangles
 plt.plot(resultarray[:, 2], 'rD', label='Infected')     # Infected: Red diamonds
-# x and y axis labels
-plt.xlabel("# Days") 
+plt.xlabel("# Days")  # x and y axis labels
 plt.ylabel("# People")
 title_r_formatted = f"{trans_const:.6g}" 
 title_a_formatted = f"{recov_rate:.6g}"
 plt.title(f"SIR model with r: {title_r_formatted}, a: {title_a_formatted}")
-plt.legend()  # Show legend
+plt.legend()
 plt.grid(True) # Add a grid for easier reading
-# Save the plot with a descriptive filename
-plot_filename = f"SIR_r{title_r_formatted}_a{title_a_formatted}.png" 
+plot_filename = f"SIR_r{title_r_formatted}_a{title_a_formatted}.png"  # Save the plot. 
 plt.savefig(plot_filename)
 print(f"Plot saved as {plot_filename}")
