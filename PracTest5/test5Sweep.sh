@@ -1,8 +1,7 @@
 #!/bin/bash # instructs system use bash for run this.
 exp_dir="test5sweep_$(date "+%Y-%m-%d_%H.%M.%S")" # Create a unique directory for the experiment
-mkdir "$exp_dir" # Create the actual directory, using name from previous line. 
-# Copy scripts to experiment directory 
-cp test5.py "$exp_dir/" # Copy the python script. 
+mkdir "$exp_dir" # Create the actual directory.
+cp test5.py "$exp_dir/" # Copy to python scripts to experiment directory 
 cp test5Sweep.sh "$exp_dir/" # Copy this bash script as well. 
 cd "$exp_dir" || { echo "Failed to cd into $exp_dir"; exit 1; } # Go to new directry, or exit and inform user on failure. 
 # Check for correct number of command-line arguments 
@@ -21,7 +20,7 @@ step_a=$6 # 6th arg = a_step.
 echo "Parameters for the sweep:" # A title print for parameters list.
 echo "Transmission constant (r) range: Start=$low_r, End=$hi_r, Step=$step_r" # Show the r range for current sweep.
 echo "Recovery rate (a) range      : Start=$low_a, End=$hi_a, Step=$step_a" # Show the a range for current sweep.
-echo "------------------------------------------------------" # Line for visual calirty
+echo ""
 # Parameter sweep
 for r in $(seq "$low_r" "$step_r" "$hi_r"); # Start loop for r. 
 do
@@ -35,6 +34,6 @@ do
         echo # Put a empty line, for easy read the output.
     done # Finish a loop for 'a' values.
 done # Finish r loop for 'r' values.
-echo "-----------------------------------------------------" # Another line for look nice, a separator.
+echo ""
 echo "Parameter sweep complete." # Tell all the experiments are done now.
 echo "Results (data and plots) are saved in: $(pwd)" # Show where all files (CSVs, plots) got saved for user.
