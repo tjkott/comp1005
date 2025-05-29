@@ -1,0 +1,24 @@
+templist = ['4', '2', '42']
+
+def loopversion1():
+    newlist = []
+    for i in templist:
+        newlist.append(int(i) + 2)
+    return newlist
+#print(loopversion1())
+
+def listcompversion1():
+    return [int(i) + 2 for i in templist]
+#print(listcompversion1())
+
+wordlist = ['forty', 'two', 'forty two']
+def loopversion2():
+    newlist = []
+    for i in wordlist:
+        newlist.append(i[::-1].upper())
+    return newlist
+#print(loopversion2())
+
+def listcompversion2():
+    return [i[::-1].upper() for i in wordlist]
+print(listcompversion2())
