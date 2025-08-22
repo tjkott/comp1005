@@ -16,12 +16,11 @@ grid[2, 3] = 1
 def make_tree(grid, topleft_pos, size, colour):
     x, y = topleft_pos
     grid[y:y+size, x:x+size] = colour
-
+make_tree(grid, (4,5), 5, 5)
 def make_house(grid, topleft_pos, height, width, colour):
     x, y = topleft_pos
     grid[y:y+height, x:x+width] = colour
 
-make_tree(grid, (4,5), 5, 5)
 make_house(grid, (10,10), 5, 8, 7)
 
 print(grid)

@@ -1,0 +1,19 @@
++--------------------------+
+|  main_processor.sh (Bash)|
++--------------------------+
+  | 1. Lists all data*.csv
+  | 2. Loops in batches of 10 (Batch 1, Batch 2, ...)
+  |----> For each BATCH (e.g., Batch 1: data001-data010.csv):
+           | A. Create results(batch_num).csv (e.g., results01.csv)
+           |    Add header: "File,Count,Min,Max,Mean"
+           |
+           |----> For each FILE in current BATCH (e.g., data001.csv):
+                    | i. Call: python gen_stats.py <data_file.csv>
+                    |      |
+                    |      +---- (gen_stats.py calculates & prints:
+                    |             "data_file.csv,count,min,max,mean")
+                    |
+                    | ii. Append output to results(batch_num).csv
+           V
+[ results01.csv ] [ results02.csv ] ... [ results100.csv ]
+  (each with 10 lines of stats + header)
